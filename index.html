@@ -5,43 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мистерия - Ответ Вселенной</title>
     <style>
-        @font-face {
-            font-family: 'Letmeshowyou';
-            src: url('./static/Letmeshowyou_font.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
-        * {
-            box-sizing: border-box;
-        }
-        
         body { 
-            font-family: 'Letmeshowyou', sans-serif; 
-            color:rgb(157, 22, 126); 
+            font-family: Arial, sans-serif; 
+            color: #b0238d; 
             margin: 0;
             padding: 20px;
-            background-color:rgb(27, 27, 27); 
+            background-color: #1b1b1b; 
             min-height: 100vh;
+            text-align: center;
         }
         
         .container { 
             max-width: 600px; 
             margin: 10vh auto; 
             padding: 20px; 
-            text-align: center;
         }
         
         h1 { 
             color: #b0238d; 
-            text-align: center; 
             font-size: 2rem;
             margin-bottom: 20px;
         }
         
         .btn { 
             display: inline-block; 
-            background-color:rgb(87, 63, 100); 
+            background-color: #573f64; 
             color: white; 
             padding: 15px 30px; 
             text-decoration: none; 
@@ -55,28 +43,14 @@
         }
         
         .btn:hover { 
-            background-color:rgb(115, 36, 160); 
-        }
-        
-        .btn:active {
-            transform: scale(0.98);
-        }
-        
-        .btn:disabled {
-            background-color: #666;
-            cursor: not-allowed;
+            background-color: #7324a0; 
         }
         
         .description { 
             margin: 30px 0; 
             line-height: 1.6; 
             color: #ccc; 
-            text-align: center;
             font-size: 1.1rem;
-        }
-        
-        .description p {
-            margin: 15px 0;
         }
         
         .answer-container {
@@ -124,67 +98,6 @@
             color: #ff6b6b;
             margin: 20px 0;
             font-size: 1rem;
-        }
-        
-        /* Мобильные устройства */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-            
-            .container {
-                margin: 5vh auto;
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-                margin-bottom: 15px;
-            }
-            
-            .description {
-                margin: 20px 0;
-                font-size: 1rem;
-            }
-            
-            .btn {
-                padding: 12px 24px;
-                font-size: 1rem;
-                min-width: 180px;
-            }
-        }
-        
-        /* Очень маленькие экраны */
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                margin: 2vh auto;
-                padding: 10px;
-            }
-            
-            h1 {
-                font-size: 1.3rem;
-            }
-            
-            .description {
-                font-size: 0.9rem;
-            }
-            
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-                min-width: 160px;
-            }
-        }
-        
-        /* Ландшафтная ориентация на мобильных */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .container {
-                margin: 2vh auto;
-            }
         }
     </style>
 </head>
