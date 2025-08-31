@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мистерия - Ответ Вселенной</title>
+    <style>
+        @font-face {
+            font-family: 'Letmeshowyou';
+            src: url('./static/Letmeshowyou_font.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Letmeshowyou', sans-serif; 
+            color:rgb(157, 22, 126); 
+            margin: 0;
+            padding: 20px;
+            background-color:rgb(27, 27, 27); 
+            min-height: 100vh;
+        }
+        
+        .container { 
+            max-width: 600px; 
+            margin: 10vh auto; 
+            padding: 20px; 
+            text-align: center;
+        }
+        
+        h1 { 
+            color: #b0238d; 
+            text-align: center; 
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .btn { 
+            display: inline-block; 
+            background-color:rgb(87, 63, 100); 
+            color: white; 
+            padding: 15px 30px; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            min-width: 200px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn:hover { 
+            background-color:rgb(115, 36, 160); 
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+        
+        .description { 
+            margin: 30px 0; 
+            line-height: 1.6; 
+            color: #ccc; 
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        .description p {
+            margin: 15px 0;
+        }
+        
+        .answer-container {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(87, 63, 100, 0.1);
+            display: none;
+        }
+        
+        .answer-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .answer-text {
+            font-size: 1.2rem;
+            color: #b0238d;
+            margin: 15px 0;
+        }
+        
+        .loading {
+            display: none;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(87, 63, 100, 0.3);
+            border-top: 4px solid #b0238d;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            color: #ff6b6b;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+        
+        /* Мобильные устройства */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                margin: 5vh auto;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .description {
+                margin: 20px 0;
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+                min-width: 180px;
+            }
+        }
+        
+        /* Очень маленькие экраны */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                margin: 2vh auto;
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            .description {
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+                min-width: 160px;
+            }
+        }
+        
+        /* Ландшафтная ориентация на мобильных */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .container {
+                margin: 2vh auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <h1>Добро пожаловать в Мистерию</h1>
+        <div class='description'>
+            <p>Узнай ответ Вселенной на свой вопрос.</p>
+            <p>Нажми на волшебную кнопку!</p>
+        </div>
+        <div>
+            <button id='magicBtn' class='btn' onclick='getAnswer()'>Нашаманить</button>
+        </div>
+        
+        <div class='loading' id='loading'>
+            <div class='spinner'></div>
+            <p>Получаем ответ от Вселенной...</p>
+        </div>
+        
+        <div class='answer-container' id='answerContainer'>
+            <div class='answer-text' id='answerText'></div>
+            <img id='answerImage' class='answer-image' alt='Ответ Вселенной'>
+        </div>
+        
+        <div class='error' id='error'></div>
+    </div>
+
+    <script>
+        async function getAnswer() {
+            const btn = document.getElementById('magicBtn');
+            const loading = document.getElementById('loading');
+            const answerContainer = document.getElementById('answerContainer');
+            const answerText = document.getElementById('answerText');
+            const answerImage = document.getElementById('answerImage');
+            const error = document.getElementById('error');
+            
+            // Скрываем предыдущие результаты
+            answerContainer.style.display = 'none';
+            error.style.display = 'none';
+            
+            // Показываем загрузку
+            loading.style.display = 'block';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch('https://yesno.wtf/api');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Скрываем загрузку
+                loading.style.display = 'none';
+                
+                // Показываем результат
+                answerText.textContent = `Ответ Вселенной: ${data.answer.toUpperCase()}`;
+                answerImage.src = data.image;
+                answerImage.onload = function() {
+                    answerContainer.style.display = 'block';
+                };
+                
+            } catch (err) {
+                loading.style.display = 'none';
+                error.textContent = `Ошибка при получении ответа: ${err.message}`;
+                error.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
